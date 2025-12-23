@@ -7,13 +7,14 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler,MinMaxScaler
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import accuracy_score,mean_absolute_error,confusion_matrix,mean_squared_error,r2_score
-
+from pathlib import Path
 st.set_page_config("Linear Regression")
 # st.title("hello")
 
 # load css
 def load_css(file):
-    with open(file) as f:
+    css_file=Path(__file__).parent/file
+    with open(css_file) as f:
         st.markdown( f"<style>{f.read()} </style>",unsafe_allow_html=True )
         
 load_css("style.css")
@@ -125,3 +126,4 @@ bill=st.slider("Total bill",float(df.total_bill.min()),float(df.total_bill.max()
 tip=model.predict(scaler.transform([[bill]]))[0]
 
 st.markdown(f"""<div class="prediction-box">Predict Tip:${tip:.2f}</div>""",unsafe_allow_html=True)
+
